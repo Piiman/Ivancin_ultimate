@@ -1,0 +1,40 @@
+# Project: Project1
+# Makefile created by Dev-C++ 5.11
+
+CPP      = g++.exe
+CC       = gcc.exe
+WINDRES  = windres.exe
+OBJ      = Agent.o AgentMain.o CTRNN.o random.o TSearch.o
+LINKOBJ  = Agent.o AgentMain.o CTRNN.o random.o TSearch.o
+LIBS     = -L"D:/Archivos de Programa/Dev-Cpp/MinGW64/lib" -L"D:/Archivos de Programa/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc
+INCS     = -I"D:/Archivos de Programa/Dev-Cpp/MinGW64/include" -I"D:/Archivos de Programa/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"D:/Archivos de Programa/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include"
+CXXINCS  = -I"D:/Archivos de Programa/Dev-Cpp/MinGW64/include" -I"D:/Archivos de Programa/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"D:/Archivos de Programa/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"D:/Archivos de Programa/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++"
+BIN      = A2EB.exe
+CXXFLAGS = $(CXXINCS) 
+CFLAGS   = $(INCS) 
+RM       = rm.exe -f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before $(BIN) all-after
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CPP) $(LINKOBJ) -o $(BIN) $(LIBS)
+
+Agent.o: Agent.cpp
+	$(CPP) -c Agent.cpp -o Agent.o $(CXXFLAGS)
+
+AgentMain.o: AgentMain.cpp
+	$(CPP) -c AgentMain.cpp -o AgentMain.o $(CXXFLAGS)
+
+CTRNN.o: CTRNN.cpp
+	$(CPP) -c CTRNN.cpp -o CTRNN.o $(CXXFLAGS)
+
+random.o: random.cpp
+	$(CPP) -c random.cpp -o random.o $(CXXFLAGS)
+
+TSearch.o: TSearch.cpp
+	$(CPP) -c TSearch.cpp -o TSearch.o $(CXXFLAGS)
