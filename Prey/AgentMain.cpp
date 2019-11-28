@@ -77,8 +77,8 @@ double runSimulation(CTRNN ctrnn, long simulations){
 	    } 
 	    sum+=1/(sqrt(pow(dragon.x-ball.x,2)+pow(dragon.y-ball.y,2))+1);
 	}
-    //return sum/simulations;
-    return 1/(sum/simulations);
+    return sum/simulations;
+    //return 1/(sum/simulations);
 }
 
 double Evaluate(TVector<double> &v, RandomState &)
@@ -103,7 +103,6 @@ int main (int argc, const char* argv[]) {
   f >> redemierda;
   
   // Configure the search
-  //leerRed();
   
   s.SetRandomSeed(87632455);
   s.SetEvaluationFunction(Evaluate);

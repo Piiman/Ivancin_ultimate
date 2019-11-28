@@ -7,7 +7,7 @@
 
 void Agent::Reset(double ix, double iy)
 {
-	x = ix; y = iy; SR = 0.0; SL=0.0; theta=0.0; width=3-0;
+	x = ix; y = iy; SR = 0.0; SL=0.0; theta=0.0; width=3.0;
 	NervousSystem.RandomizeCircuitState(-0.1,0.1);
 }
 
@@ -16,11 +16,18 @@ double xFut,yFut;
 void Agent::Step(double StepSize, double cazX, double cazY)
 {
 	//Calculate the distance to the source of energy
-	ex=cazX; ey=cazY;
-	double distance = 1-sqrt(pow((x-ex),2)+pow(y-ey,2))/100;
+	double OjoIzq = 1-sqrt(pow(((x+(width*sin(22.5)))-cazX),2)+pow((y+(width*sin(22.5)))-cazY,2))/100;
+	double OjoDer = 1-sqrt(pow(((x-(width*sin(22.5)))-cazX),2)+pow((y-(width*sin(22.5)))-cazY,2))/100;
+	double OjoTraIzq = 1-sqrt(pow(((x+(width*sin(202.5)))-cazX),2)+pow((y+(width*sin(202.5)))-cazY,2))/100;
+	double OjoTraDer = 1-sqrt(pow(((x-(width*sin(202.5)))-cazX),2)+pow((y-(width*sin(202.5)))-cazY,2))/100;
+	
 	
 	//Feed the neuron with the distance
-	NervousSystem.SetNeuronExternalInput(1,distance);
+	NervousSystem.SetNeuronExternalInput(1,OjoIzq);
+	NervousSystem.SetNeuronExternalInput(2,OjoDer);
+	NervousSystem.SetNeuronExternalInput(3,OjoTraIzq);
+	NervousSystem.SetNeuronExternalInput(4,OjoTraDer);	
+	
 	
 	//Integrate the neural network
 	NervousSystem.EulerStep(StepSize);
