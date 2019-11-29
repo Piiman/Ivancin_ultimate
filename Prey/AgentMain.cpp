@@ -63,9 +63,11 @@ double runSimulation(CTRNN ctrnn, long simulations){
 	Agent dragon;
 	Agent ball;
 	double sum=0;
+	int apunaladas;
 	ifstream f;
-  	f.open("Nombresito.dat");
-  	CTRNN redemierda;
+  	//f.open("Nombresito.dat");
+  	f.open("hapapa.dat");
+	CTRNN redemierda;
   	f >> redemierda;
 	ball.NervousSystem=ctrnn;
 	dragon.NervousSystem = redemierda;
@@ -74,10 +76,14 @@ double runSimulation(CTRNN ctrnn, long simulations){
 	    for (double time = 0; time < RunDuration; time += StepSize) {
 	        dragon.Step(StepSize,ball.x,ball.y);
 	        ball.Step(StepSize,dragon.x,dragon.y);
+	        if ((ball.x < dragon.x+1 && ball.x>dragon.x-1)||(ball.y < dragon.y+1 && ball.y>dragon.y-1)){
+	        	apunaladas++;
+			}
 	    } 
-	    sum+=1/(sqrt(pow(dragon.x-ball.x,2)+pow(dragon.y-ball.y,2))+1);
+	    //sum+=(pow(2,apunaladas)-1)/(sqrt(pow(dragon.x-ball.x,2)+pow(dragon.y-ball.y,2))+1);
+		sum+=(1/(sqrt(pow(dragon.x-ball.x,2)+pow(dragon.y-ball.y,2))+1));
 	}
-    return sum/simulations;
+    return (sum/simulations)*apunaladas;
     //return 1/(sum/simulations);
 }
 
@@ -97,7 +103,8 @@ double Evaluate(TVector<double> &v, RandomState &)
 int main (int argc, const char* argv[]) {
 	
   ifstream f;
-  f.open("Nombresito.dat");
+  //f.open("Nombresito.dat");
+  f.open("hapapa.dat");
   TSearch s(neurons*(2+neurons));
   CTRNN redemierda;
   f >> redemierda;
@@ -140,7 +147,8 @@ int main (int argc, const char* argv[]) {
   
   ofs.close();
   
-  ofs.open("hapapa.dat");
+  //ofs.open("hapapa.dat");
+  ofs.open("Nombresito.dat");
   ofs<<ctrnn;
   ofs.close();
   return 0;
